@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyBlock Hub - Hypixel Skyblock Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="https://mc-heads.net/head/c06f89544bb7b064e0c4d2fc015fcea4e150e74c3a40e03e6ed6027e3c6e5305/32" alt="SkyBlock" class="logo-icon">
+                <span>SkyBlock<span class="accent">Hub</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="#" class="nav-link active" data-section="bazaar">Bazaar</a>
+                <a href="#" class="nav-link" data-section="best-items">Best Items</a>
+                <a href="#" class="nav-link" data-section="top-resell">Top Resell</a>
+                <a href="#" class="nav-link" data-section="money-methods">Money Methods</a>
+                <a href="#" class="nav-link" data-section="mob-guide">Mob Guide</a>
+                <a href="#" class="nav-link" data-section="strategies">Best Strats</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#" class="mobile-link" data-section="bazaar">Bazaar</a>
+        <a href="#" class="mobile-link" data-section="best-items">Best Items</a>
+        <a href="#" class="mobile-link" data-section="top-resell">Top Resell</a>
+        <a href="#" class="mobile-link" data-section="money-methods">Money Methods</a>
+        <a href="#" class="mobile-link" data-section="mob-guide">Mob Guide</a>
+        <a href="#" class="mobile-link" data-section="strategies">Best Strats</a>
+    </div>
+
+    <!-- Hero -->
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>SkyBlock<span class="accent">Hub</span></h1>
+            <p class="hero-subtitle">The ultimate Hypixel SkyBlock companion. Track bazaar prices, find the best flips, money methods, mob guides & top strategies.</p>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <span class="stat-value" id="totalItems">572</span>
+                    <span class="stat-label">Items Tracked</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="avgProfit">2.4M</span>
+                    <span class="stat-label">Avg Flip Profit/hr</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="methodCount">24</span>
+                    <span class="stat-label">Money Methods</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- ==================== BAZAAR SECTION ==================== -->
+        <section class="section" id="bazaar">
+            <div class="section-header">
+                <h2>Bazaar Tracker</h2>
+                <p>Live-ish prices for top Bazaar items. Find the best instant and order flips.</p>
+            </div>
+
+            <div class="controls-bar">
+                <div class="search-box">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <input type="text" id="bazaarSearch" placeholder="Search items...">
+                </div>
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">All</button>
+                    <button class="filter-tab" data-filter="farming">Farming</button>
+                    <button class="filter-tab" data-filter="mining">Mining</button>
+                    <button class="filter-tab" data-filter="combat">Combat</button>
+                    <button class="filter-tab" data-filter="wood">Wood</button>
+                    <button class="filter-tab" data-filter="enchanting">Enchanting</button>
+                </div>
+                <div class="sort-dropdown">
+                    <select id="bazaarSort">
+                        <option value="profit-desc">Highest Profit</option>
+                        <option value="profit-asc">Lowest Profit</option>
+                        <option value="name-asc">Name A-Z</option>
+                        <option value="volume-desc">Highest Volume</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="data-table" id="bazaarTable">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Buy Price</th>
+                            <th>Sell Price</th>
+                            <th>Margin</th>
+                            <th>Profit %</th>
+                            <th>Volume (24h)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bazaarBody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ==================== BEST ITEMS SECTION ==================== -->
+        <section class="section hidden" id="best-items">
+            <div class="section-header">
+                <h2>Best Items by Budget</h2>
+                <p>Find the best items to flip based on your current coin balance.</p>
+            </div>
+
+            <div class="budget-control">
+                <div class="budget-display">
+                    <span class="budget-label">Your Budget:</span>
+                    <span class="budget-value" id="budgetValue">10,000,000</span>
+                    <span class="budget-coins">coins</span>
+                </div>
+                <div class="slider-container">
+                    <input type="range" id="budgetSlider" min="10000" max="500000000" value="10000000" step="10000" class="budget-slider">
+                    <div class="slider-labels">
+                        <span>10K</span>
+                        <span>1M</span>
+                        <span>10M</span>
+                        <span>100M</span>
+                        <span>500M</span>
+                    </div>
+                </div>
+                <div class="budget-presets">
+                    <button class="preset-btn" data-budget="100000">100K</button>
+                    <button class="preset-btn" data-budget="1000000">1M</button>
+                    <button class="preset-btn" data-budget="5000000">5M</button>
+                    <button class="preset-btn active" data-budget="10000000">10M</button>
+                    <button class="preset-btn" data-budget="50000000">50M</button>
+                    <button class="preset-btn" data-budget="100000000">100M</button>
+                    <button class="preset-btn" data-budget="500000000">500M</button>
+                </div>
+            </div>
+
+            <div class="items-grid" id="bestItemsGrid"></div>
+        </section>
+
+        <!-- ==================== TOP RESELL SECTION ==================== -->
+        <section class="section hidden" id="top-resell">
+            <div class="section-header">
+                <h2>Top Resell Opportunities</h2>
+                <p>Items with the highest profit margins for buy-order to sell-order flipping on the Bazaar and AH.</p>
+            </div>
+
+            <div class="resell-tabs">
+                <button class="resell-tab active" data-resell="bazaar-flip">Bazaar Flips</button>
+                <button class="resell-tab" data-resell="ah-flip">AH Flips</button>
+                <button class="resell-tab" data-resell="npc-sell">NPC Sell</button>
+                <button class="resell-tab" data-resell="craft-flip">Craft Flips</button>
+            </div>
+
+            <div class="resell-grid" id="resellGrid"></div>
+        </section>
+
+        <!-- ==================== MONEY METHODS SECTION ==================== -->
+        <section class="section hidden" id="money-methods">
+            <div class="section-header">
+                <h2>Money Making Methods</h2>
+                <p>The best ways to earn coins in Hypixel SkyBlock. Click any method for a full guide.</p>
+            </div>
+
+            <div class="methods-filter">
+                <button class="method-filter-btn active" data-difficulty="all">All</button>
+                <button class="method-filter-btn" data-difficulty="early">Early Game</button>
+                <button class="method-filter-btn" data-difficulty="mid">Mid Game</button>
+                <button class="method-filter-btn" data-difficulty="late">Late Game</button>
+                <button class="method-filter-btn" data-difficulty="end">End Game</button>
+            </div>
+
+            <div class="methods-grid" id="methodsGrid"></div>
+        </section>
+
+        <!-- ==================== MOB GUIDE SECTION ==================== -->
+        <section class="section hidden" id="mob-guide">
+            <div class="section-header">
+                <h2>Mob Guide</h2>
+                <p>Learn how to defeat every major mob in Hypixel SkyBlock. Tips, strategies, and recommended gear.</p>
+            </div>
+
+            <div class="mob-filter">
+                <button class="mob-filter-btn active" data-location="all">All</button>
+                <button class="mob-filter-btn" data-location="hub">Hub</button>
+                <button class="mob-filter-btn" data-location="deep-caverns">Deep Caverns</button>
+                <button class="mob-filter-btn" data-location="end">The End</button>
+                <button class="mob-filter-btn" data-location="crimson">Crimson Isle</button>
+                <button class="mob-filter-btn" data-location="slayer">Slayers</button>
+                <button class="mob-filter-btn" data-location="dungeons">Dungeons</button>
+            </div>
+
+            <div class="mob-grid" id="mobGrid"></div>
+        </section>
+
+        <!-- ==================== STRATEGIES SECTION ==================== -->
+        <section class="section hidden" id="strategies">
+            <div class="section-header">
+                <h2>Best Strategies for Hypixel SkyBlock</h2>
+                <p>Proven strategies and tier lists for progression, farming, dungeons, and more.</p>
+            </div>
+
+            <div class="strats-grid" id="stratsGrid"></div>
+        </section>
+    </main>
+
+    <!-- MODAL for Money Methods / Mob Guide details -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="detailModal">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-header" id="modalHeader"></div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>SkyBlockHub &mdash; Not affiliated with Hypixel Inc. Game data is approximate and for reference only.</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
